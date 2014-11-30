@@ -1,0 +1,10 @@
+---
+- name: Prepare machine as ruby on rails server
+  hosts: all
+  sudo: true
+  roles:
+    -  rails
+    - { role: rvm_io.rvm1-ruby, tags: ruby, sudo: True }
+    - { role: bennojoy.memcached, memcached_listen_address: 127.0.0.1, memcached_cache_size: 256, memcached_port: 11211 }
+  vars_files:
+    - vars.yml    

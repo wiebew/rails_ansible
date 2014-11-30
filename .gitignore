@@ -1,0 +1,4 @@
+hosts
+private_settings.yml
+**/deploy_rsa
+**/deploy_rsa.pub

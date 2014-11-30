@@ -1,0 +1,21 @@
+---
+  - name: Add user so we can connect with capistrano
+    user: name='{{ rails_user_name }}' shell=/bin/bash state=present groups="rvm"
+  
+  - name: Add RSA key to the remote host for the rails  user
+    authorized_key: user='{{ rails_user_name }}' key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+  - name: Install packages 
+    apt: name={{item}} state=present
+    with_items:
+      - curl
+      - nginx
+      - git
+      - imagemagick
+
+  - name: copy deploy key
+    copy: src=deploy_rsa dest='/home/{{ rails_user_name }}/.ssh/deploy_rsa' mode='600' owner='{{ rails_user_name }}' group='{{ rails_user_name }}'
+
+  - name: set up deploy key for usage with github
+    copy: src=local_ssh_config dest='/home/{{ rails_user_name }}/.ssh/config' mode='600' owner='{{ rails_user_name }}' group='{{ rails_user_name }}'
+
