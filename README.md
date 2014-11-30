@@ -14,6 +14,6 @@ create a deploy keyfile
 ```
 ssh-keygen -t rsa -C "deployer@bladiebla.org"
 ```
-add the PUBLIC keyfile to guthub
+add the PUBLIC keyfile to github
 move the private keyfile to `roles/rails/files/deploy_rsa`
 
